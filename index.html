@@ -9,37 +9,44 @@
 
 <style>
 *{box-sizing:border-box;font-family:Inter,sans-serif}
-html,body{margin:0;background:#0f0f14;color:white;scroll-behavior:smooth}
+html,body{margin:0;background:#0f0f14;color:white}
 
-section{
+.screen{
   min-height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:40px;
   text-align:center;
+  padding:40px;
 }
 
 .text{
-  font-size:2.2rem;
-  font-weight:600;
+  font-size:2rem;
   opacity:0;
   transform:translateY(40px);
-  transition:1.2s ease;
+  transition:1s ease;
 }
 
-.show{
-  opacity:1;
-  transform:none;
+.show{opacity:1;transform:none}
+
+#hold{
+  border:2px solid white;
+  padding:18px 32px;
+  border-radius:40px;
+  margin-top:30px;
+  opacity:.7;
 }
 
-.small{font-size:1.4rem;font-weight:400;opacity:.8}
+#final{
+  display:none;
+  flex-direction:column;
+}
 
 .image{
-  width:80%;
-  max-width:420px;
-  height:520px;
+  width:320px;
+  height:460px;
   border-radius:24px;
+  background:url('https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=900&q=80');
   background-size:cover;
   background-position:center;
   box-shadow:0 40px 120px rgba(0,0,0,.6);
@@ -49,55 +56,59 @@ section{
 
 <body>
 
-<section>
-  <div class="text">Happy Birthday</div>
-</section>
-
-<section>
-  <div class="text small">hari ini…</div>
-</section>
-
-<section>
-  <div class="text">tentang kamu</div>
-</section>
-
-<section>
-  <div class="image" style="background-image:url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=900&q=80')"></div>
-</section>
-
-<section>
-  <div class="text small">
-    tentang semua hal<br>
-    yang kamu lewati<br><br>
-    dan tetap bertahan
+<div class="screen">
+  <div class="text show">
+    Happy Birthday<br><br>
+    <span style="opacity:.7">scroll pelan ya</span>
   </div>
-</section>
+</div>
 
-<section>
-  <div class="text">
-    kamu hebat.
+<div class="screen">
+  <div class="text show">
+    ini bukan hadiah besar
   </div>
-</section>
+</div>
 
-<section>
-  <div class="text small">
-    semoga dunia<br>
-    hari ini<br>
-    sedikit lebih lembut<br>
-    ke kamu.
+<div class="screen">
+  <div class="text show">
+    tapi dibuat<br>
+    dengan niat
   </div>
-</section>
+</div>
+
+<div class="screen">
+  <div>
+    <div class="text show">tahan sebentar</div>
+    <div id="hold">tap & hold</div>
+  </div>
+</div>
+
+<div class="screen" id="final">
+  <div class="image"></div>
+  <div class="text show" style="margin-top:30px">
+    semoga kamu<br>
+    selalu merasa<br>
+    dihargai 🤍
+  </div>
+</div>
 
 <script>
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.querySelector('.text, .image')?.classList.add('show');
-    }
-  });
-},{threshold:.4});
+let timer;
+const hold=document.getElementById("hold");
+const final=document.getElementById("final");
 
-document.querySelectorAll("section").forEach(s=>obs.observe(s));
+hold.addEventListener("touchstart",start);
+hold.addEventListener("mousedown",start);
+hold.addEventListener("touchend",end);
+hold.addEventListener("mouseup",end);
+
+function start(){
+  timer=setTimeout(()=>{
+    final.style.display="flex";
+    final.scrollIntoView({behavior:"smooth"});
+  },1200);
+}
+function end(){clearTimeout(timer)}
 </script>
 
 </body>
