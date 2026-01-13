@@ -1,125 +1,127 @@
-<!DOCTYPE html>
+<!<!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Happy Birthday ✨</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
 :root{
-  --bg1:#f6f7fb;
-  --bg2:#e9ebf3;
-  --primary:#6b7280;
-  --accent:#9ca3af;
-  --card:#ffffff;
+  --pink:#ff7aa2;
+  --purple:#8b5cf6;
+  --blue:#38bdf8;
+  --yellow:#fde68a;
+  --dark:#1f2937;
 }
 
 *{
   box-sizing:border-box;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-family:'Poppins',sans-serif;
 }
 
 body{
   margin:0;
   min-height:100vh;
-  background: linear-gradient(120deg,var(--bg1),var(--bg2));
+  background: linear-gradient(120deg,var(--pink),var(--purple),var(--blue));
+  background-size:400% 400%;
+  animation:bgMove 12s ease infinite;
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   overflow:hidden;
 }
 
-.bg-animate{
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at 20% 20%, #e5e7eb, transparent 40%),
-    radial-gradient(circle at 80% 80%, #d1d5db, transparent 40%);
-  animation: moveBg 18s linear infinite;
-  z-index:-1;
-}
-
-@keyframes moveBg{
-  0%{transform:translate(0,0)}
-  50%{transform:translate(-20px,-30px)}
-  100%{transform:translate(0,0)}
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 
 .card{
-  width:90%;
-  max-width:380px;
-  background:var(--card);
-  border-radius:24px;
+  width:92%;
+  max-width:400px;
+  background:rgba(255,255,255,.9);
+  backdrop-filter:blur(12px);
+  border-radius:28px;
   padding:28px;
-  box-shadow:0 20px 60px rgba(0,0,0,.08);
-  animation: appear 1.2s ease;
+  box-shadow:0 30px 80px rgba(0,0,0,.25);
+  animation:pop .9s ease;
 }
 
-@keyframes appear{
-  from{opacity:0;transform:translateY(30px)}
-  to{opacity:1;transform:translateY(0)}
+@keyframes pop{
+  from{opacity:0;transform:scale(.9) translateY(40px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
 }
 
 h1{
-  font-size:1.8rem;
-  color:#111827;
-  margin-bottom:6px;
+  margin:0;
+  font-size:1.9rem;
+  color:var(--dark);
 }
 
 h2{
-  font-size:1rem;
-  color:var(--primary);
-  margin-bottom:16px;
+  margin:6px 0 16px;
+  font-weight:500;
+  color:#374151;
 }
 
 p{
   color:#4b5563;
-  line-height:1.6;
-  margin-bottom:20px;
+  line-height:1.7;
 }
 
 button{
   width:100%;
+  margin-top:18px;
   padding:14px;
   border:none;
-  border-radius:14px;
-  background:#111827;
-  color:white;
+  border-radius:16px;
   font-size:1rem;
+  font-weight:600;
+  color:white;
+  background:linear-gradient(120deg,var(--pink),var(--purple));
   cursor:pointer;
   transition:.3s;
 }
 
 button:hover{
-  background:#1f2937;
-  transform:translateY(-2px);
+  transform:translateY(-3px) scale(1.02);
+  box-shadow:0 12px 30px rgba(0,0,0,.2);
 }
 
 .hidden{display:none}
 
-/* GAME */
-.game{
-  text-align:center;
+/* game */
+.game-area{
+  margin:24px 0;
+  position:relative;
+  height:200px;
+  background:linear-gradient(120deg,#fdf2f8,#eef2ff);
+  border-radius:18px;
+  overflow:hidden;
 }
 
-.target{
-  width:60px;
-  height:60px;
+.bubble{
+  position:absolute;
+  width:52px;
+  height:52px;
   border-radius:50%;
-  background:#9ca3af;
-  margin:30px auto;
-  animation:pulse 1s infinite;
+  background:linear-gradient(120deg,var(--pink),var(--blue));
+  animation:float 3s infinite ease-in-out;
 }
 
-@keyframes pulse{
-  0%{transform:scale(1)}
-  50%{transform:scale(1.15)}
-  100%{transform:scale(1)}
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-20px)}
+  100%{transform:translateY(0)}
 }
 
 .score{
+  text-align:center;
   font-weight:600;
-  color:#111827;
+  color:var(--dark);
 }
 
 canvas{
@@ -132,41 +134,46 @@ canvas{
 
 <body>
 
-<div class="bg-animate"></div>
 <canvas id="fx"></canvas>
 
 <div class="card">
 
-  <div id="scene1">
-    <h1>Happy Birthday 🎂</h1>
-    <h2>Tak Gambarr</h2>
+  <!-- SCENE 1 -->
+  <div id="s1">
+    <h1>🎂 Happy Birthday</h1>
+    <h2>Tak Gambarr ✨</h2>
     <p>
-      Hari ini bukan hari biasa.  
-      Ini tentang seseorang yang kehadirannya bikin dunia jadi sedikit lebih hangat.
+      Hari ini spesial banget.  
+      Dunia kedatangan seseorang yang bikin warna hidup jadi lebih indah 🌈
     </p>
-    <button onclick="nextScene(2)">Lanjut ✨</button>
+    <button onclick="go(2)">Mulai 🎉</button>
   </div>
 
-  <div id="scene2" class="hidden">
+  <!-- SCENE 2 -->
+  <div id="s2" class="hidden">
     <p>
-      Semoga di umur yang baru ini,  
-      kamu lebih tenang, lebih bahagia,  
-      dan tetap jadi versi terbaik dari dirimu sendiri.
+      Semoga di umur baru ini,  
+      kamu selalu dikelilingi hal-hal baik,  
+      tawa yang tulus,  
+      dan mimpi yang pelan-pelan jadi nyata 💫
     </p>
-    <button onclick="nextScene(3)">Ada sesuatu 🎁</button>
+    <button onclick="go(3)">Main Game 🎮</button>
   </div>
 
-  <div id="scene3" class="hidden game">
-    <p>Klik bulatan ini 5x 🎯</p>
-    <div class="target" onclick="tap()"></div>
+  <!-- GAME -->
+  <div id="s3" class="hidden">
+    <p style="text-align:center">Pecahin balonnya 🎈 (5x)</p>
+    <div class="game-area" id="area"></div>
     <div class="score">Score: <span id="score">0</span>/5</div>
   </div>
 
-  <div id="scene4" class="hidden">
-    <h1>✨ Kamu Berhasil ✨</h1>
+  <!-- FINAL -->
+  <div id="s4" class="hidden">
+    <h1>✨ Kamu Hebat ✨</h1>
     <p>
-      Terima kasih sudah ada.  
-      Dunia terasa lebih baik karena kamu lahir 🤍
+      Terima kasih sudah bertahan sejauh ini.  
+      Semoga hidupmu selalu penuh warna,  
+      seperti hari ini 🤍
     </p>
   </div>
 
@@ -174,39 +181,50 @@ canvas{
 
 <script>
 let score=0;
+const area=document.getElementById("area");
 const canvas=document.getElementById("fx");
 const ctx=canvas.getContext("2d");
 canvas.width=innerWidth;
 canvas.height=innerHeight;
 
-function nextScene(n){
-  document.querySelectorAll('[id^="scene"]').forEach(s=>s.classList.add("hidden"));
-  document.getElementById("scene"+n).classList.remove("hidden");
+function go(n){
+  document.querySelectorAll('[id^="s"]').forEach(e=>e.classList.add("hidden"));
+  document.getElementById("s"+n).classList.remove("hidden");
+  if(n===3) spawn();
 }
 
-function tap(){
-  score++;
-  document.getElementById("score").innerText=score;
-  pop();
-  if(score>=5){
-    confetti();
-    setTimeout(()=>nextScene(4),500);
-  }
+function spawn(){
+  const b=document.createElement("div");
+  b.className="bubble";
+  b.style.left=Math.random()*80+"%";
+  b.style.top=Math.random()*120+"px";
+  b.onclick=()=>{
+    b.remove();
+    score++;
+    document.getElementById("score").innerText=score;
+    popFx();
+    if(score>=5){
+      confetti();
+      setTimeout(()=>go(4),700);
+    }else{
+      spawn();
+    }
+  };
+  area.appendChild(b);
 }
 
-function pop(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+function popFx(){
   ctx.beginPath();
-  ctx.arc(Math.random()*canvas.width,Math.random()*canvas.height,8,0,Math.PI*2);
-  ctx.fillStyle="#9ca3af";
+  ctx.arc(Math.random()*canvas.width,Math.random()*canvas.height,10,0,Math.PI*2);
+  ctx.fillStyle="rgba(255,255,255,.8)";
   ctx.fill();
 }
 
 function confetti(){
-  for(let i=0;i<120;i++){
+  for(let i=0;i<160;i++){
     ctx.beginPath();
     ctx.arc(Math.random()*canvas.width,Math.random()*canvas.height,4,0,Math.PI*2);
-    ctx.fillStyle=["#9ca3af","#d1d5db","#6b7280"][Math.floor(Math.random()*3)];
+    ctx.fillStyle=["#ff7aa2","#8b5cf6","#38bdf8","#fde68a"][Math.floor(Math.random()*4)];
     ctx.fill();
   }
 }
