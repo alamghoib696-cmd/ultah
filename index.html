@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday ✨</title>
+
+<style>
+:root{
+  --bg1:#f6f7fb;
+  --bg2:#e9ebf3;
+  --primary:#6b7280;
+  --accent:#9ca3af;
+  --card:#ffffff;
+}
+
+*{
+  box-sizing:border-box;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background: linear-gradient(120deg,var(--bg1),var(--bg2));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.bg-animate{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 20%, #e5e7eb, transparent 40%),
+    radial-gradient(circle at 80% 80%, #d1d5db, transparent 40%);
+  animation: moveBg 18s linear infinite;
+  z-index:-1;
+}
+
+@keyframes moveBg{
+  0%{transform:translate(0,0)}
+  50%{transform:translate(-20px,-30px)}
+  100%{transform:translate(0,0)}
+}
+
+.card{
+  width:90%;
+  max-width:380px;
+  background:var(--card);
+  border-radius:24px;
+  padding:28px;
+  box-shadow:0 20px 60px rgba(0,0,0,.08);
+  animation: appear 1.2s ease;
+}
+
+@keyframes appear{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+h1{
+  font-size:1.8rem;
+  color:#111827;
+  margin-bottom:6px;
+}
+
+h2{
+  font-size:1rem;
+  color:var(--primary);
+  margin-bottom:16px;
+}
+
+p{
+  color:#4b5563;
+  line-height:1.6;
+  margin-bottom:20px;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:#111827;
+  color:white;
+  font-size:1rem;
+  cursor:pointer;
+  transition:.3s;
+}
+
+button:hover{
+  background:#1f2937;
+  transform:translateY(-2px);
+}
+
+.hidden{display:none}
+
+/* GAME */
+.game{
+  text-align:center;
+}
+
+.target{
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:#9ca3af;
+  margin:30px auto;
+  animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.15)}
+  100%{transform:scale(1)}
+}
+
+.score{
+  font-weight:600;
+  color:#111827;
+}
+
+canvas{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg-animate"></div>
+<canvas id="fx"></canvas>
+
+<div class="card">
+
+  <div id="scene1">
+    <h1>Happy Birthday 🎂</h1>
+    <h2>Tak Gambarr</h2>
+    <p>
+      Hari ini bukan hari biasa.  
+      Ini tentang seseorang yang kehadirannya bikin dunia jadi sedikit lebih hangat.
+    </p>
+    <button onclick="nextScene(2)">Lanjut ✨</button>
+  </div>
+
+  <div id="scene2" class="hidden">
+    <p>
+      Semoga di umur yang baru ini,  
+      kamu lebih tenang, lebih bahagia,  
+      dan tetap jadi versi terbaik dari dirimu sendiri.
+    </p>
+    <button onclick="nextScene(3)">Ada sesuatu 🎁</button>
+  </div>
+
+  <div id="scene3" class="hidden game">
+    <p>Klik bulatan ini 5x 🎯</p>
+    <div class="target" onclick="tap()"></div>
+    <div class="score">Score: <span id="score">0</span>/5</div>
+  </div>
+
+  <div id="scene4" class="hidden">
+    <h1>✨ Kamu Berhasil ✨</h1>
+    <p>
+      Terima kasih sudah ada.  
+      Dunia terasa lebih baik karena kamu lahir 🤍
+    </p>
+  </div>
+
+</div>
+
+<script>
+let score=0;
+const canvas=document.getElementById("fx");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+function nextScene(n){
+  document.querySelectorAll('[id^="scene"]').forEach(s=>s.classList.add("hidden"));
+  document.getElementById("scene"+n).classList.remove("hidden");
+}
+
+function tap(){
+  score++;
+  document.getElementById("score").innerText=score;
+  pop();
+  if(score>=5){
+    confetti();
+    setTimeout(()=>nextScene(4),500);
+  }
+}
+
+function pop(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.beginPath();
+  ctx.arc(Math.random()*canvas.width,Math.random()*canvas.height,8,0,Math.PI*2);
+  ctx.fillStyle="#9ca3af";
+  ctx.fill();
+}
+
+function confetti(){
+  for(let i=0;i<120;i++){
+    ctx.beginPath();
+    ctx.arc(Math.random()*canvas.width,Math.random()*canvas.height,4,0,Math.PI*2);
+    ctx.fillStyle=["#9ca3af","#d1d5db","#6b7280"][Math.floor(Math.random()*3)];
+    ctx.fill();
+  }
+}
+</script>
+
+</body>
+</html>
