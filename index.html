@@ -14,6 +14,7 @@
   --blue:#4d96ff;
   --yellow:#ffc75f;
   --dark:#1f2937;
+  --glass:rgba(255,255,255,.92);
 }
 
 *{
@@ -26,10 +27,10 @@ body{
   min-height:100vh;
   background:
     linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),
-    url("https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=1400&q=80");
+    url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80");
   background-size:cover;
   background-position:center;
-  overflow:hidden;
+  overflow-x:hidden;
 }
 
 /* ===== NAVBAR ===== */
@@ -43,8 +44,8 @@ nav{
   justify-content:space-between;
   align-items:center;
   background:rgba(255,255,255,.85);
-  backdrop-filter:blur(10px);
-  z-index:10;
+  backdrop-filter:blur(12px);
+  z-index:20;
 }
 
 nav .logo{
@@ -54,7 +55,7 @@ nav .logo{
 
 nav .menu{
   display:flex;
-  gap:14px;
+  gap:10px;
 }
 
 nav button{
@@ -63,25 +64,30 @@ nav button{
   color:white;
   padding:8px 14px;
   border-radius:14px;
-  font-size:.85rem;
+  font-size:.8rem;
   cursor:pointer;
+  transition:.3s;
 }
 
-/* ===== CARD ===== */
+nav button:hover{
+  transform:translateY(-2px);
+}
+
+/* ===== LAYOUT ===== */
 .wrapper{
+  min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  min-height:100vh;
-  padding-top:70px;
+  padding:90px 16px 40px;
 }
 
 .card{
-  width:92%;
+  width:100%;
   max-width:430px;
-  background:rgba(255,255,255,.93);
-  backdrop-filter:blur(14px);
-  border-radius:28px;
+  background:var(--glass);
+  backdrop-filter:blur(16px);
+  border-radius:30px;
   padding:28px;
   box-shadow:0 30px 90px rgba(0,0,0,.35);
   animation:enter 1s ease;
@@ -111,6 +117,7 @@ p{
 
 .hidden{display:none}
 
+/* ===== BUTTON ===== */
 .btn{
   width:100%;
   margin-top:18px;
@@ -127,12 +134,23 @@ p{
 
 .btn:hover{
   transform:translateY(-3px) scale(1.02);
+  box-shadow:0 12px 40px rgba(0,0,0,.25);
+}
+
+/* ===== HERO IMAGE ===== */
+.hero{
+  width:100%;
+  height:180px;
+  border-radius:22px;
+  background:url("https://images.unsplash.com/photo-1616627983865-dc6d8cb5f8a3?auto=format&fit=crop&w=1000&q=80");
+  background-size:cover;
+  background-position:center;
+  margin-bottom:16px;
 }
 
 /* ===== ALBUM ===== */
 .album{
   margin:18px 0;
-  overflow:hidden;
 }
 
 .slider{
@@ -140,18 +158,19 @@ p{
   gap:14px;
   overflow-x:auto;
   scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
 }
 
 .slider::-webkit-scrollbar{display:none}
 
 .slide{
   min-width:75%;
-  height:180px;
-  border-radius:20px;
+  height:190px;
+  border-radius:22px;
   background-size:cover;
   background-position:center;
   scroll-snap-align:center;
-  box-shadow:0 10px 30px rgba(0,0,0,.25);
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
 }
 
 /* ===== GAME ===== */
@@ -160,20 +179,20 @@ p{
   position:relative;
   height:220px;
   background:linear-gradient(120deg,#fff1f2,#eef2ff);
-  border-radius:20px;
+  border-radius:22px;
   overflow:hidden;
 }
 
 .star{
   position:absolute;
-  font-size:28px;
+  font-size:30px;
   cursor:pointer;
-  animation:float 2.5s infinite ease-in-out;
+  animation:float 2.8s infinite ease-in-out;
 }
 
 @keyframes float{
   0%{transform:translateY(0)}
-  50%{transform:translateY(-18px)}
+  50%{transform:translateY(-20px)}
   100%{transform:translateY(0)}
 }
 
@@ -183,10 +202,12 @@ p{
   color:var(--dark);
 }
 
+/* ===== CANVAS FX ===== */
 canvas{
   position:fixed;
   inset:0;
   pointer-events:none;
+  z-index:5;
 }
 </style>
 </head>
@@ -199,6 +220,7 @@ canvas{
     <button onclick="go('home')">Home</button>
     <button onclick="go('album')">Album</button>
     <button onclick="go('game')">Game</button>
+    <button onclick="go('final')">Message</button>
   </div>
 </nav>
 
@@ -208,47 +230,51 @@ canvas{
 <div class="card">
 
   <!-- HOME -->
-  <div id="home">
+  <section id="home">
+    <div class="hero"></div>
     <h1>Happy Birthday 🎉</h1>
     <h2>Tak Gambarr ✨</h2>
     <p>
-      Hari ini tentang kamu.  
-      Tentang semua warna, cerita, dan tawa  
-      yang kamu bawa ke dunia 🌈
+      Hari ini bukan sekadar ulang tahun.  
+      Ini perayaan tentang seseorang  
+      yang kehadirannya memberi warna di banyak hari 🌈
     </p>
-    <button class="btn" onclick="go('album')">Lihat Album 💖</button>
-  </div>
+    <button class="btn" onclick="go('album')">Buka Album 💖</button>
+  </section>
 
   <!-- ALBUM -->
-  <div id="album" class="hidden">
-    <p>Album kecil penuh cerita ✨ (geser fotonya)</p>
+  <section id="album" class="hidden">
+    <p>Album kecil penuh rasa ✨ (geser fotonya)</p>
     <div class="album">
       <div class="slider">
-        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1611095787463-6d0c3b2a0d8d?auto=format&fit=crop&w=800&q=80')"></div>
-        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=800&q=80')"></div>
-        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1621784564114-6eea05b89863?auto=format&fit=crop&w=800&q=80')"></div>
-        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1616627983865-dc6d8cb5f8a3?auto=format&fit=crop&w=800&q=80')"></div>
+        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1621784564114-6eea05b89863?auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1611095787463-6d0c3b2a0d8d?auto=format&fit=crop&w=1000&q=80')"></div>
+        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1616627983865-dc6d8cb5f8a3?auto=format&fit=crop&w=1000&q=80')"></div>
       </div>
     </div>
-    <button class="btn" onclick="go('game')">Main Game 🎮</button>
-  </div>
+    <button class="btn" onclick="go('game')">Lanjut Main 🎮</button>
+  </section>
 
   <!-- GAME -->
-  <div id="game" class="hidden">
+  <section id="game" class="hidden">
     <p style="text-align:center">Tangkap bintangnya ⭐ (5x)</p>
     <div class="game-box" id="gameBox"></div>
     <div class="score">Score: <span id="score">0</span>/5</div>
-  </div>
+  </section>
 
-  <!-- FINAL -->
-  <div id="final" class="hidden">
-    <h1>✨ Kamu Spesial ✨</h1>
+  <!-- FINAL MESSAGE -->
+  <section id="final" class="hidden">
+    <h1>✨ Untuk Kamu ✨</h1>
     <p>
-      Terima kasih sudah ada,  
-      semoga hidupmu selalu dipenuhi  
-      cinta, warna, dan kebahagiaan 🤍
+      Terima kasih sudah bertahan,  
+      sudah tumbuh, dan tetap jadi dirimu sendiri.  
+      <br><br>
+      Semoga langkahmu ke depan  
+      selalu ditemani cinta,  
+      ketenangan, dan hal-hal baik 🤍
     </p>
-  </div>
+  </section>
 
 </div>
 </div>
@@ -263,15 +289,13 @@ canvas.height=innerHeight;
 
 function go(id){
   ["home","album","game","final"].forEach(s=>{
-    const el=document.getElementById(s);
-    if(el) el.classList.add("hidden");
+    document.getElementById(s).classList.add("hidden");
   });
   document.getElementById(id).classList.remove("hidden");
-  if(id==="game") spawn();
+  if(id==="game" && score<5) spawn();
 }
 
 function spawn(){
-  if(score>=5) return;
   const star=document.createElement("div");
   star.className="star";
   star.innerText="⭐";
@@ -281,7 +305,7 @@ function spawn(){
     star.remove();
     score++;
     document.getElementById("score").innerText=score;
-    pop();
+    sparkle();
     if(score>=5){
       confetti();
       setTimeout(()=>go("final"),700);
@@ -290,7 +314,7 @@ function spawn(){
   gameBox.appendChild(star);
 }
 
-function pop(){
+function sparkle(){
   ctx.beginPath();
   ctx.arc(Math.random()*canvas.width,Math.random()*canvas.height,10,0,Math.PI*2);
   ctx.fillStyle="rgba(255,255,255,.9)";
@@ -298,7 +322,7 @@ function pop(){
 }
 
 function confetti(){
-  for(let i=0;i<220;i++){
+  for(let i=0;i<260;i++){
     ctx.beginPath();
     ctx.arc(Math.random()*canvas.width,Math.random()*canvas.height,4,0,Math.PI*2);
     ctx.fillStyle=["#ff6f91","#845ec2","#4d96ff","#ffc75f"][Math.floor(Math.random()*4)];
@@ -309,3 +333,4 @@ function confetti(){
 
 </body>
 </html>
+
