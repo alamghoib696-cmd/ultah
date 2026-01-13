@@ -5,16 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Happy Birthday ✨</title>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
+<style>
 :root{
-  --pink:#ff6f91;
-  --purple:#845ec2;
-  --blue:#4d96ff;
-  --yellow:#ffc75f;
-  --dark:#1f2937;
-  --glass:rgba(255,255,255,.92);
+  --bg:#fff7f9;
+  --primary:#f5a3b7;
+  --secondary:#c3b8f2;
+  --dark:#374151;
 }
 
 *{
@@ -22,192 +20,108 @@
   font-family:'Poppins',sans-serif;
 }
 
-body{
-  margin:0;
-  min-height:100vh;
-  background:
-    linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),
-    url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80");
-  background-size:cover;
-  background-position:center;
-  overflow-x:hidden;
+html{
+  scroll-behavior:smooth;
 }
 
-/* ===== NAVBAR ===== */
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--dark);
+}
+
+/* NAVBAR */
 nav{
   position:fixed;
   top:0;
-  left:0;
-  right:0;
-  padding:14px 18px;
+  width:100%;
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(10px);
   display:flex;
   justify-content:space-between;
-  align-items:center;
-  background:rgba(255,255,255,.85);
-  backdrop-filter:blur(12px);
-  z-index:20;
+  padding:14px 20px;
+  z-index:10;
 }
 
-nav .logo{
-  font-weight:700;
+nav a{
+  margin-left:14px;
+  text-decoration:none;
   color:var(--dark);
+  font-weight:500;
 }
 
-nav .menu{
-  display:flex;
-  gap:10px;
-}
-
-nav button{
-  border:none;
-  background:linear-gradient(120deg,var(--pink),var(--purple));
-  color:white;
-  padding:8px 14px;
-  border-radius:14px;
-  font-size:.8rem;
-  cursor:pointer;
-  transition:.3s;
-}
-
-nav button:hover{
-  transform:translateY(-2px);
-}
-
-/* ===== LAYOUT ===== */
-.wrapper{
+/* SECTION */
+section{
   min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:90px 16px 40px;
+  padding:110px 22px 60px;
+  max-width:500px;
+  margin:auto;
 }
 
-.card{
+.hero-img{
   width:100%;
-  max-width:430px;
-  background:var(--glass);
-  backdrop-filter:blur(16px);
-  border-radius:30px;
-  padding:28px;
-  box-shadow:0 30px 90px rgba(0,0,0,.35);
-  animation:enter 1s ease;
-}
-
-@keyframes enter{
-  from{opacity:0;transform:translateY(40px) scale(.95)}
-  to{opacity:1;transform:none}
+  height:240px;
+  border-radius:28px;
+  background:url("https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=1200&q=80");
+  background-size:cover;
+  background-position:center;
+  margin-bottom:26px;
 }
 
 h1{
-  margin:0;
-  font-size:1.9rem;
-  color:var(--dark);
+  font-size:2rem;
+  margin-bottom:10px;
 }
 
-h2{
-  margin:6px 0 14px;
-  font-weight:500;
-  color:#374151;
+.subtitle{
+  opacity:.75;
 }
 
-p{
-  color:#4b5563;
-  line-height:1.7;
-}
-
-.hidden{display:none}
-
-/* ===== BUTTON ===== */
-.btn{
-  width:100%;
-  margin-top:18px;
-  padding:15px;
-  border:none;
-  border-radius:18px;
-  font-size:1rem;
-  font-weight:600;
-  color:white;
-  background:linear-gradient(120deg,var(--pink),var(--purple),var(--blue));
-  cursor:pointer;
-  transition:.35s;
-}
-
-.btn:hover{
-  transform:translateY(-3px) scale(1.02);
-  box-shadow:0 12px 40px rgba(0,0,0,.25);
-}
-
-/* ===== HERO IMAGE ===== */
-.hero{
-  width:100%;
-  height:180px;
-  border-radius:22px;
-  background:url("https://images.unsplash.com/photo-1616627983865-dc6d8cb5f8a3?auto=format&fit=crop&w=1000&q=80");
-  background-size:cover;
-  background-position:center;
-  margin-bottom:16px;
-}
-
-/* ===== ALBUM ===== */
-.album{
-  margin:18px 0;
-}
-
+/* ALBUM */
 .slider{
   display:flex;
-  gap:14px;
+  gap:16px;
   overflow-x:auto;
   scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling:touch;
 }
 
 .slider::-webkit-scrollbar{display:none}
 
-.slide{
-  min-width:75%;
-  height:190px;
-  border-radius:22px;
+.photo{
+  min-width:80%;
+  height:220px;
+  border-radius:24px;
   background-size:cover;
   background-position:center;
   scroll-snap-align:center;
-  box-shadow:0 12px 30px rgba(0,0,0,.25);
 }
 
-/* ===== GAME ===== */
-.game-box{
-  margin:20px 0;
-  position:relative;
-  height:220px;
-  background:linear-gradient(120deg,#fff1f2,#eef2ff);
-  border-radius:22px;
-  overflow:hidden;
+/* PUZZLE */
+.puzzle{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:6px;
+  margin-top:24px;
 }
 
-.star{
-  position:absolute;
-  font-size:30px;
+.tile{
+  aspect-ratio:1/1;
+  background-image:url("https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=600&q=80");
+  background-size:300% 300%;
+  border-radius:12px;
   cursor:pointer;
-  animation:float 2.8s infinite ease-in-out;
 }
 
-@keyframes float{
-  0%{transform:translateY(0)}
-  50%{transform:translateY(-20px)}
-  100%{transform:translateY(0)}
+.empty{
+  background:none;
+  cursor:default;
 }
 
-.score{
+/* FOOTER */
+.footer{
   text-align:center;
-  font-weight:600;
-  color:var(--dark);
-}
-
-/* ===== CANVAS FX ===== */
-canvas{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:5;
+  opacity:.7;
+  padding:30px 0;
 }
 </style>
 </head>
@@ -215,122 +129,100 @@ canvas{
 <body>
 
 <nav>
-  <div class="logo">🎂 Birthday</div>
-  <div class="menu">
-    <button onclick="go('home')">Home</button>
-    <button onclick="go('album')">Album</button>
-    <button onclick="go('game')">Game</button>
-    <button onclick="go('final')">Message</button>
+  <strong>🎂 Birthday</strong>
+  <div>
+    <a href="#home">Home</a>
+    <a href="#album">Album</a>
+    <a href="#puzzle">Puzzle</a>
+    <a href="#message">Message</a>
   </div>
 </nav>
 
-<canvas id="fx"></canvas>
+<!-- HOME -->
+<section id="home">
+  <div class="hero-img"></div>
+  <h1>Happy Birthday ✨</h1>
+  <p class="subtitle">Tak Gambarr</p>
+  <p>
+    Hari ini bukan cuma tentang bertambahnya umur,  
+    tapi tentang semua perjalanan yang sudah kamu lewati  
+    dan semua hal baik yang masih menunggumu 🌷
+  </p>
+</section>
 
-<div class="wrapper">
-<div class="card">
+<!-- ALBUM -->
+<section id="album">
+  <h1>Photo Album</h1>
+  <p class="subtitle">Geser pelan-pelan ya</p>
+  <div class="slider">
+    <div class="photo" style="background-image:url('https://images.unsplash.com/photo-1611095787463-6d0c3b2a0d8d?auto=format&fit=crop&w=1200&q=80')"></div>
+    <div class="photo" style="background-image:url('https://images.unsplash.com/photo-1621784564114-6eea05b89863?auto=format&fit=crop&w=1200&q=80')"></div>
+    <div class="photo" style="background-image:url('https://images.unsplash.com/photo-1616627983865-dc6d8cb5f8a3?auto=format&fit=crop&w=1200&q=80')"></div>
+  </div>
+</section>
 
-  <!-- HOME -->
-  <section id="home">
-    <div class="hero"></div>
-    <h1>Happy Birthday 🎉</h1>
-    <h2>Tak Gambarr ✨</h2>
-    <p>
-      Hari ini bukan sekadar ulang tahun.  
-      Ini perayaan tentang seseorang  
-      yang kehadirannya memberi warna di banyak hari 🌈
-    </p>
-    <button class="btn" onclick="go('album')">Buka Album 💖</button>
-  </section>
+<!-- PUZZLE -->
+<section id="puzzle">
+  <h1>Mini Puzzle 🧩</h1>
+  <p class="subtitle">Susun fotonya sampai rapi</p>
+  <div class="puzzle" id="puzzleBox"></div>
+</section>
 
-  <!-- ALBUM -->
-  <section id="album" class="hidden">
-    <p>Album kecil penuh rasa ✨ (geser fotonya)</p>
-    <div class="album">
-      <div class="slider">
-        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=1000&q=80')"></div>
-        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1621784564114-6eea05b89863?auto=format&fit=crop&w=1000&q=80')"></div>
-        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1611095787463-6d0c3b2a0d8d?auto=format&fit=crop&w=1000&q=80')"></div>
-        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1616627983865-dc6d8cb5f8a3?auto=format&fit=crop&w=1000&q=80')"></div>
-      </div>
-    </div>
-    <button class="btn" onclick="go('game')">Lanjut Main 🎮</button>
-  </section>
-
-  <!-- GAME -->
-  <section id="game" class="hidden">
-    <p style="text-align:center">Tangkap bintangnya ⭐ (5x)</p>
-    <div class="game-box" id="gameBox"></div>
-    <div class="score">Score: <span id="score">0</span>/5</div>
-  </section>
-
-  <!-- FINAL MESSAGE -->
-  <section id="final" class="hidden">
-    <h1>✨ Untuk Kamu ✨</h1>
-    <p>
-      Terima kasih sudah bertahan,  
-      sudah tumbuh, dan tetap jadi dirimu sendiri.  
-      <br><br>
-      Semoga langkahmu ke depan  
-      selalu ditemani cinta,  
-      ketenangan, dan hal-hal baik 🤍
-    </p>
-  </section>
-
-</div>
-</div>
+<!-- MESSAGE -->
+<section id="message">
+  <h1>For You 🤍</h1>
+  <p>
+    Terima kasih sudah tumbuh sejauh ini.  
+    Semoga kamu selalu dikelilingi hal-hal yang lembut,  
+    tulus, dan membuatmu merasa pulang.
+  </p>
+  <div class="footer">Made with 💖</div>
+</section>
 
 <script>
-let score=0;
-const gameBox=document.getElementById("gameBox");
-const canvas=document.getElementById("fx");
-const ctx=canvas.getContext("2d");
-canvas.width=innerWidth;
-canvas.height=innerHeight;
+const box=document.getElementById("puzzleBox");
+let tiles=[];
 
-function go(id){
-  ["home","album","game","final"].forEach(s=>{
-    document.getElementById(s).classList.add("hidden");
+function createPuzzle(){
+  tiles=[...Array(9).keys()];
+  tiles.sort(()=>Math.random()-0.5);
+  render();
+}
+
+function render(){
+  box.innerHTML="";
+  tiles.forEach((n,i)=>{
+    const d=document.createElement("div");
+    if(n===8){
+      d.className="tile empty";
+    }else{
+      d.className="tile";
+      d.style.backgroundPosition=
+        `${(n%3)*50}% ${Math.floor(n/3)*50}%`;
+      d.onclick=()=>move(i);
+    }
+    box.appendChild(d);
   });
-  document.getElementById(id).classList.remove("hidden");
-  if(id==="game" && score<5) spawn();
 }
 
-function spawn(){
-  const star=document.createElement("div");
-  star.className="star";
-  star.innerText="⭐";
-  star.style.left=Math.random()*85+"%";
-  star.style.top=Math.random()*160+"px";
-  star.onclick=()=>{
-    star.remove();
-    score++;
-    document.getElementById("score").innerText=score;
-    sparkle();
-    if(score>=5){
-      confetti();
-      setTimeout(()=>go("final"),700);
-    }else spawn();
-  };
-  gameBox.appendChild(star);
-}
-
-function sparkle(){
-  ctx.beginPath();
-  ctx.arc(Math.random()*canvas.width,Math.random()*canvas.height,10,0,Math.PI*2);
-  ctx.fillStyle="rgba(255,255,255,.9)";
-  ctx.fill();
-}
-
-function confetti(){
-  for(let i=0;i<260;i++){
-    ctx.beginPath();
-    ctx.arc(Math.random()*canvas.width,Math.random()*canvas.height,4,0,Math.PI*2);
-    ctx.fillStyle=["#ff6f91","#845ec2","#4d96ff","#ffc75f"][Math.floor(Math.random()*4)];
-    ctx.fill();
+function move(i){
+  const e=tiles.indexOf(8);
+  const ok=[e-1,e+1,e-3,e+3];
+  if(ok.includes(i)){
+    [tiles[i],tiles[e]]=[tiles[e],tiles[i]];
+    render();
+    check();
   }
 }
+
+function check(){
+  if(tiles.every((v,i)=>v===i)){
+    alert("🎉 Puzzle selesai!");
+  }
+}
+
+createPuzzle();
 </script>
 
 </body>
 </html>
-
