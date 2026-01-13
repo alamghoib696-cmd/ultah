@@ -1,96 +1,80 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Happy Birthday ✨</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You 🎁</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-:root{
-  --bg:#fff7f9;
-  --primary:#f5a3b7;
-  --secondary:#c3b8f2;
-  --dark:#374151;
+*{box-sizing:border-box;font-family:Poppins,sans-serif}
+body{margin:0;background:#fff7f9;color:#374151;overflow:hidden}
+.hidden{display:none}
+
+/* LOCK SCREEN */
+#lock{
+  position:fixed;inset:0;
+  background:linear-gradient(120deg,#fbc2eb,#a6c1ee);
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  text-align:center;
+  z-index:99;
+}
+#lock h1{font-size:2rem;color:white}
+#lock button{
+  margin-top:20px;
+  padding:16px 28px;
+  border:none;border-radius:30px;
+  background:white;
+  font-weight:600;
+  font-size:1rem;
+  cursor:pointer;
 }
 
-*{
-  box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
+/* COUNTDOWN */
+#countdown{
+  font-size:4rem;
+  color:white;
+  margin-top:20px;
 }
 
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--dark);
-}
-
-/* NAVBAR */
+/* MAIN */
 nav{
-  position:fixed;
-  top:0;
-  width:100%;
+  position:fixed;top:0;width:100%;
+  padding:14px 20px;
   background:rgba(255,255,255,.85);
   backdrop-filter:blur(10px);
-  display:flex;
-  justify-content:space-between;
-  padding:14px 20px;
+  display:flex;justify-content:space-between;
   z-index:10;
 }
+nav a{text-decoration:none;color:#374151;margin-left:14px}
 
-nav a{
-  margin-left:14px;
-  text-decoration:none;
-  color:var(--dark);
-  font-weight:500;
-}
-
-/* SECTION */
 section{
   min-height:100vh;
-  padding:110px 22px 60px;
+  padding:120px 22px 60px;
   max-width:500px;
   margin:auto;
 }
 
-.hero-img{
-  width:100%;
-  height:240px;
-  border-radius:28px;
+/* HERO */
+.hero{
+  height:260px;
+  border-radius:30px;
   background:url("https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=1200&q=80");
   background-size:cover;
   background-position:center;
-  margin-bottom:26px;
+  animation:fade 1.5s ease;
 }
-
-h1{
-  font-size:2rem;
-  margin-bottom:10px;
-}
-
-.subtitle{
-  opacity:.75;
-}
+@keyframes fade{from{opacity:0;transform:scale(.95)}to{opacity:1}}
 
 /* ALBUM */
-.slider{
-  display:flex;
-  gap:16px;
-  overflow-x:auto;
-  scroll-snap-type:x mandatory;
-}
-
+.slider{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory}
 .slider::-webkit-scrollbar{display:none}
-
 .photo{
   min-width:80%;
   height:220px;
-  border-radius:24px;
+  border-radius:26px;
   background-size:cover;
   background-position:center;
   scroll-snap-align:center;
@@ -100,60 +84,59 @@ h1{
 .puzzle{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:6px;
-  margin-top:24px;
+  gap:6px;margin-top:20px;
 }
-
 .tile{
-  aspect-ratio:1/1;
+  aspect-ratio:1;
   background-image:url("https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=600&q=80");
   background-size:300% 300%;
   border-radius:12px;
-  cursor:pointer;
 }
+.empty{background:none}
 
-.empty{
-  background:none;
-  cursor:default;
+/* FINAL MESSAGE */
+#final{
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s;
 }
-
-/* FOOTER */
-.footer{
-  text-align:center;
-  opacity:.7;
-  padding:30px 0;
+#final.show{
+  opacity:1;
+  transform:none;
 }
 </style>
 </head>
 
 <body>
 
-<nav>
+<!-- LOCK -->
+<div id="lock">
+  <h1>Ada sesuatu buat kamu 🎁</h1>
+  <button onclick="start()">Buka Hadiah</button>
+  <div id="countdown" class="hidden">3</div>
+</div>
+
+<!-- MAIN -->
+<nav class="hidden" id="nav">
   <strong>🎂 Birthday</strong>
   <div>
-    <a href="#home">Home</a>
     <a href="#album">Album</a>
     <a href="#puzzle">Puzzle</a>
-    <a href="#message">Message</a>
   </div>
 </nav>
 
-<!-- HOME -->
-<section id="home">
-  <div class="hero-img"></div>
+<section id="home" class="hidden">
+  <div class="hero"></div>
   <h1>Happy Birthday ✨</h1>
-  <p class="subtitle">Tak Gambarr</p>
+  <p><strong>Tak Gambarr</strong></p>
   <p>
-    Hari ini bukan cuma tentang bertambahnya umur,  
-    tapi tentang semua perjalanan yang sudah kamu lewati  
-    dan semua hal baik yang masih menunggumu 🌷
+    Hari ini tentang kamu.  
+    Tentang semua versi dirimu yang bertahan sampai sekarang 🤍
   </p>
 </section>
 
-<!-- ALBUM -->
 <section id="album">
-  <h1>Photo Album</h1>
-  <p class="subtitle">Geser pelan-pelan ya</p>
+  <h1>Memories</h1>
   <div class="slider">
     <div class="photo" style="background-image:url('https://images.unsplash.com/photo-1611095787463-6d0c3b2a0d8d?auto=format&fit=crop&w=1200&q=80')"></div>
     <div class="photo" style="background-image:url('https://images.unsplash.com/photo-1621784564114-6eea05b89863?auto=format&fit=crop&w=1200&q=80')"></div>
@@ -161,67 +144,69 @@ h1{
   </div>
 </section>
 
-<!-- PUZZLE -->
 <section id="puzzle">
-  <h1>Mini Puzzle 🧩</h1>
-  <p class="subtitle">Susun fotonya sampai rapi</p>
+  <h1>Satu Lagi 🧩</h1>
+  <p>Susun dulu, baru lanjut 😉</p>
   <div class="puzzle" id="puzzleBox"></div>
 </section>
 
-<!-- MESSAGE -->
-<section id="message">
-  <h1>For You 🤍</h1>
+<section id="final">
+  <h1>Untuk Kamu 🤍</h1>
   <p>
-    Terima kasih sudah tumbuh sejauh ini.  
-    Semoga kamu selalu dikelilingi hal-hal yang lembut,  
-    tulus, dan membuatmu merasa pulang.
+    Terima kasih sudah jadi dirimu sendiri.  
+    Semoga tahun ini lebih lembut,  
+    lebih jujur, dan lebih membahagiakan.
   </p>
-  <div class="footer">Made with 💖</div>
 </section>
 
 <script>
-const box=document.getElementById("puzzleBox");
-let tiles=[];
-
-function createPuzzle(){
-  tiles=[...Array(9).keys()];
-  tiles.sort(()=>Math.random()-0.5);
-  render();
+/* SURPRISE */
+function start(){
+  const cd=document.getElementById("countdown");
+  cd.classList.remove("hidden");
+  let n=3;
+  cd.innerText=n;
+  const i=setInterval(()=>{
+    n--;cd.innerText=n;
+    if(n===0){
+      clearInterval(i);
+      document.getElementById("lock").style.display="none";
+      document.body.style.overflow="auto";
+      document.getElementById("nav").classList.remove("hidden");
+      document.getElementById("home").classList.remove("hidden");
+    }
+  },900);
 }
+
+/* PUZZLE */
+const box=document.getElementById("puzzleBox");
+let tiles=[...Array(9).keys()].sort(()=>Math.random()-0.5);
 
 function render(){
   box.innerHTML="";
   tiles.forEach((n,i)=>{
     const d=document.createElement("div");
-    if(n===8){
-      d.className="tile empty";
-    }else{
+    if(n===8)d.className="tile empty";
+    else{
       d.className="tile";
-      d.style.backgroundPosition=
-        `${(n%3)*50}% ${Math.floor(n/3)*50}%`;
+      d.style.backgroundPosition=`${(n%3)*50}% ${Math.floor(n/3)*50}%`;
       d.onclick=()=>move(i);
     }
     box.appendChild(d);
   });
 }
-
 function move(i){
   const e=tiles.indexOf(8);
   const ok=[e-1,e+1,e-3,e+3];
   if(ok.includes(i)){
     [tiles[i],tiles[e]]=[tiles[e],tiles[i]];
     render();
-    check();
+    if(tiles.every((v,i)=>v===i)){
+      document.getElementById("final").classList.add("show");
+    }
   }
 }
-
-function check(){
-  if(tiles.every((v,i)=>v===i)){
-    alert("🎉 Puzzle selesai!");
-  }
-}
-
-createPuzzle();
+render();
 </script>
 
 </body>
