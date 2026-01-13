@@ -26,12 +26,12 @@ body{
   min-height:100vh;
   background:
     linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),
-    url("https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=1200&q=80");
+    url("https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=1400&q=80");
   background-size:cover;
   background-position:center;
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   overflow:hidden;
 }
 
@@ -41,7 +41,7 @@ body{
   background:rgba(255,255,255,.92);
   backdrop-filter:blur(14px);
   border-radius:28px;
-  padding:30px;
+  padding:28px;
   box-shadow:0 30px 90px rgba(0,0,0,.35);
   animation:enter 1s ease;
 }
@@ -49,16 +49,6 @@ body{
 @keyframes enter{
   from{opacity:0;transform:translateY(40px) scale(.95)}
   to{opacity:1;transform:none}
-}
-
-.hero-img{
-  width:100%;
-  height:180px;
-  border-radius:20px;
-  background:url("https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80");
-  background-size:cover;
-  background-position:center;
-  margin-bottom:18px;
 }
 
 h1{
@@ -98,6 +88,35 @@ button:hover{
 }
 
 .hidden{display:none}
+
+/* ===== ALBUM ===== */
+.album{
+  margin:18px 0;
+  overflow:hidden;
+}
+
+.slider{
+  display:flex;
+  gap:14px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+
+.slider::-webkit-scrollbar{
+  display:none;
+}
+
+.slide{
+  min-width:75%;
+  height:180px;
+  border-radius:20px;
+  background-size:cover;
+  background-position:center;
+  scroll-snap-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+  flex-shrink:0;
+}
 
 /* GAME */
 .game-box{
@@ -144,27 +163,32 @@ canvas{
 
   <!-- SCENE 1 -->
   <div id="s1">
-    <div class="hero-img"></div>
     <h1>Happy Birthday 🎂</h1>
     <h2>Tak Gambarr ✨</h2>
     <p>
-      Hari ini bukan cuma tentang bertambah usia,  
-      tapi tentang betapa berharganya kehadiranmu di dunia ini 🌈
+      Hari ini tentang kamu.  
+      Tentang senyum, cerita, dan semua warna yang kamu bawa ke dunia 🌈
     </p>
     <button onclick="go(2)">Lanjut 💖</button>
   </div>
 
-  <!-- SCENE 2 -->
+  <!-- SCENE 2 : ALBUM -->
   <div id="s2" class="hidden">
-    <p>
-      Semoga setiap langkahmu ke depan  
-      selalu ditemani kebahagiaan,  
-      ketenangan, dan cinta yang tulus 💫
-    </p>
+    <p>Beberapa momen manis ✨ (geser fotonya)</p>
+
+    <div class="album">
+      <div class="slider">
+        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1611095787463-6d0c3b2a0d8d?auto=format&fit=crop&w=800&q=80')"></div>
+        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=800&q=80')"></div>
+        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1621784564114-6eea05b89863?auto=format&fit=crop&w=800&q=80')"></div>
+        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1616627983865-dc6d8cb5f8a3?auto=format&fit=crop&w=800&q=80')"></div>
+      </div>
+    </div>
+
     <button onclick="go(3)">Main Game ✨</button>
   </div>
 
-  <!-- GAME -->
+  <!-- SCENE 3 : GAME -->
   <div id="s3" class="hidden">
     <p style="text-align:center">Tangkap bintangnya ⭐ (5x)</p>
     <div class="game-box" id="game"></div>
@@ -175,9 +199,8 @@ canvas{
   <div id="s4" class="hidden">
     <h1>✨ Kamu Spesial ✨</h1>
     <p>
-      Terima kasih sudah menjadi dirimu sendiri.  
-      Semoga hidupmu selalu dipenuhi warna,  
-      cinta, dan cerita indah 🤍
+      Terima kasih sudah jadi cahaya di banyak hari.  
+      Semoga langkahmu ke depan selalu dipenuhi cinta 🤍
     </p>
   </div>
 
@@ -226,7 +249,7 @@ function pop(){
 }
 
 function confetti(){
-  for(let i=0;i<180;i++){
+  for(let i=0;i<200;i++){
     ctx.beginPath();
     ctx.arc(Math.random()*canvas.width,Math.random()*canvas.height,4,0,Math.PI*2);
     ctx.fillStyle=["#ff6f91","#845ec2","#4d96ff","#ffc75f"][Math.floor(Math.random()*4)];
