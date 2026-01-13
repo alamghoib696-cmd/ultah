@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Happy Birthday ✨</title>
 
 <style>
@@ -29,16 +29,57 @@ body{
     url("https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=1400&q=80");
   background-size:cover;
   background-position:center;
+  overflow:hidden;
+}
+
+/* ===== NAVBAR ===== */
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  padding:14px 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(10px);
+  z-index:10;
+}
+
+nav .logo{
+  font-weight:700;
+  color:var(--dark);
+}
+
+nav .menu{
+  display:flex;
+  gap:14px;
+}
+
+nav button{
+  border:none;
+  background:linear-gradient(120deg,var(--pink),var(--purple));
+  color:white;
+  padding:8px 14px;
+  border-radius:14px;
+  font-size:.85rem;
+  cursor:pointer;
+}
+
+/* ===== CARD ===== */
+.wrapper{
   display:flex;
   justify-content:center;
   align-items:center;
-  overflow:hidden;
+  min-height:100vh;
+  padding-top:70px;
 }
 
 .card{
   width:92%;
-  max-width:420px;
-  background:rgba(255,255,255,.92);
+  max-width:430px;
+  background:rgba(255,255,255,.93);
   backdrop-filter:blur(14px);
   border-radius:28px;
   padding:28px;
@@ -68,7 +109,9 @@ p{
   line-height:1.7;
 }
 
-button{
+.hidden{display:none}
+
+.btn{
   width:100%;
   margin-top:18px;
   padding:15px;
@@ -82,12 +125,9 @@ button{
   transition:.35s;
 }
 
-button:hover{
+.btn:hover{
   transform:translateY(-3px) scale(1.02);
-  box-shadow:0 14px 40px rgba(0,0,0,.3);
 }
-
-.hidden{display:none}
 
 /* ===== ALBUM ===== */
 .album{
@@ -100,12 +140,9 @@ button:hover{
   gap:14px;
   overflow-x:auto;
   scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling:touch;
 }
 
-.slider::-webkit-scrollbar{
-  display:none;
-}
+.slider::-webkit-scrollbar{display:none}
 
 .slide{
   min-width:75%;
@@ -114,11 +151,10 @@ button:hover{
   background-size:cover;
   background-position:center;
   scroll-snap-align:center;
-  box-shadow:0 10px 30px rgba(0,0,0,.2);
-  flex-shrink:0;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
 }
 
-/* GAME */
+/* ===== GAME ===== */
 .game-box{
   margin:20px 0;
   position:relative;
@@ -132,7 +168,7 @@ button:hover{
   position:absolute;
   font-size:28px;
   cursor:pointer;
-  animation:float 2.8s infinite ease-in-out;
+  animation:float 2.5s infinite ease-in-out;
 }
 
 @keyframes float{
@@ -157,25 +193,35 @@ canvas{
 
 <body>
 
+<nav>
+  <div class="logo">🎂 Birthday</div>
+  <div class="menu">
+    <button onclick="go('home')">Home</button>
+    <button onclick="go('album')">Album</button>
+    <button onclick="go('game')">Game</button>
+  </div>
+</nav>
+
 <canvas id="fx"></canvas>
 
+<div class="wrapper">
 <div class="card">
 
-  <!-- SCENE 1 -->
-  <div id="s1">
-    <h1>Happy Birthday 🎂</h1>
+  <!-- HOME -->
+  <div id="home">
+    <h1>Happy Birthday 🎉</h1>
     <h2>Tak Gambarr ✨</h2>
     <p>
       Hari ini tentang kamu.  
-      Tentang senyum, cerita, dan semua warna yang kamu bawa ke dunia 🌈
+      Tentang semua warna, cerita, dan tawa  
+      yang kamu bawa ke dunia 🌈
     </p>
-    <button onclick="go(2)">Lanjut 💖</button>
+    <button class="btn" onclick="go('album')">Lihat Album 💖</button>
   </div>
 
-  <!-- SCENE 2 : ALBUM -->
-  <div id="s2" class="hidden">
-    <p>Beberapa momen manis ✨ (geser fotonya)</p>
-
+  <!-- ALBUM -->
+  <div id="album" class="hidden">
+    <p>Album kecil penuh cerita ✨ (geser fotonya)</p>
     <div class="album">
       <div class="slider">
         <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1611095787463-6d0c3b2a0d8d?auto=format&fit=crop&w=800&q=80')"></div>
@@ -184,43 +230,48 @@ canvas{
         <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1616627983865-dc6d8cb5f8a3?auto=format&fit=crop&w=800&q=80')"></div>
       </div>
     </div>
-
-    <button onclick="go(3)">Main Game ✨</button>
+    <button class="btn" onclick="go('game')">Main Game 🎮</button>
   </div>
 
-  <!-- SCENE 3 : GAME -->
-  <div id="s3" class="hidden">
+  <!-- GAME -->
+  <div id="game" class="hidden">
     <p style="text-align:center">Tangkap bintangnya ⭐ (5x)</p>
-    <div class="game-box" id="game"></div>
+    <div class="game-box" id="gameBox"></div>
     <div class="score">Score: <span id="score">0</span>/5</div>
   </div>
 
   <!-- FINAL -->
-  <div id="s4" class="hidden">
+  <div id="final" class="hidden">
     <h1>✨ Kamu Spesial ✨</h1>
     <p>
-      Terima kasih sudah jadi cahaya di banyak hari.  
-      Semoga langkahmu ke depan selalu dipenuhi cinta 🤍
+      Terima kasih sudah ada,  
+      semoga hidupmu selalu dipenuhi  
+      cinta, warna, dan kebahagiaan 🤍
     </p>
   </div>
 
 </div>
+</div>
 
 <script>
 let score=0;
-const game=document.getElementById("game");
+const gameBox=document.getElementById("gameBox");
 const canvas=document.getElementById("fx");
 const ctx=canvas.getContext("2d");
 canvas.width=innerWidth;
 canvas.height=innerHeight;
 
-function go(n){
-  document.querySelectorAll('[id^="s"]').forEach(e=>e.classList.add("hidden"));
-  document.getElementById("s"+n).classList.remove("hidden");
-  if(n===3) spawn();
+function go(id){
+  ["home","album","game","final"].forEach(s=>{
+    const el=document.getElementById(s);
+    if(el) el.classList.add("hidden");
+  });
+  document.getElementById(id).classList.remove("hidden");
+  if(id==="game") spawn();
 }
 
 function spawn(){
+  if(score>=5) return;
   const star=document.createElement("div");
   star.className="star";
   star.innerText="⭐";
@@ -233,12 +284,10 @@ function spawn(){
     pop();
     if(score>=5){
       confetti();
-      setTimeout(()=>go(4),700);
-    }else{
-      spawn();
-    }
+      setTimeout(()=>go("final"),700);
+    }else spawn();
   };
-  game.appendChild(star);
+  gameBox.appendChild(star);
 }
 
 function pop(){
@@ -249,7 +298,7 @@ function pop(){
 }
 
 function confetti(){
-  for(let i=0;i<200;i++){
+  for(let i=0;i<220;i++){
     ctx.beginPath();
     ctx.arc(Math.random()*canvas.width,Math.random()*canvas.height,4,0,Math.PI*2);
     ctx.fillStyle=["#ff6f91","#845ec2","#4d96ff","#ffc75f"][Math.floor(Math.random()*4)];
